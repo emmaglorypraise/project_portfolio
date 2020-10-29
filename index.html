@@ -352,7 +352,7 @@
 						<h2>About <strong>Me</strong></h2>
 					</div>
 					<p class="lead">Glory Praise Emmanuel (commonly called Glory Praise) is a Web Designer and Frontend Web Developer . </p>
-					<p class="lead">She is passionate about tech, problem solving, building solutions, personal development, leadership and growth.  </p>
+					<p class="lead">She is passionate about deploying solution based approach to problem solving with tech. She is also passionate about personal development, leadership, growth and helping people(especially young ladies) become better versions of themselves.  </p>
 					<p class="mb-5  ">She is a Computer Engineering undergraduate in her penultimate year. </p>
 
 					<p>
@@ -557,23 +557,26 @@
 				</div>
 
 				<div class="col-md-7 mb-5 mb-md-0">
-					<form action="" class="site-form">
+					<form id="my-form" action="https://formspree.io/f/xqkgbanv"
+					method="POST" 
+					class="site-form">
 						<h3 class="mb-5">Get In Touch</h3>
 						<div class="form-group">
-							<input type="text" class="form-control px-3 py-4" placeholder="Your Name">
+							<input type="text" class="form-control px-3 py-4" placeholder="Your Name" name="Name" >
 						</div>
 						<div class="form-group">
-							<input type="email" class="form-control px-3 py-4" placeholder="Your Email">
+							<input type="email" class="form-control px-3 py-4" placeholder="Your Email" name="_replyto">
 						</div>
-						<div class="form-group">
-							<input type="email" class="form-control px-3 py-4" placeholder="Your Phone">
-						</div>
+						<!-- <div class="form-group">
+							<input type="email" class="form-control px-3 py-4" placeholder="Your Phone" name="Phone">
+						</div> -->
 						<div class="form-group mb-5">
-							<textarea class="form-control px-3 py-4"cols="30" rows="10" placeholder="Write a Message"></textarea>
+							<textarea class="form-control px-3 py-4"cols="30" rows="10" placeholder="Write a Message" name="message"></textarea>
 						</div>
 						<div class="form-group">
-							<input type="submit" class="btn button-color  px-4 py-3" value="Send Message">
+							<input  id="my-form-button" type="submit" class="btn button-color  px-4 py-3" value="Send Message">
 						</div>
+						 <p id="my-form-status"></p>
 					</form>
 				</div>
 				<div class="col-md-5 pl-md-5">
@@ -587,15 +590,13 @@
 							<span class="text-uppercase">Phone</span>
 							+234 817 985 9168
 						</li>
-						<!-- <li>
-							<span class="text-uppercase">Fax</span>
-							+30 976 1382 9922
-						</li> -->
 						<li>
 							<span class="text-uppercase">Address</span>
 							Port Harcourt, NG <br>
-							<!-- 4th Floor8 Lower  <br>
-							San Francisco street, M1 50F -->
+						</li>
+							<li>
+							<span class="text-uppercase">More?</span>
+							<a href="https://glorypraise.disha.page/" target="_blank" rel="noopener noreferrer">glorypraise.disha.page</a>
 						</li>
 					</ul>
 				</div>
@@ -651,5 +652,52 @@
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     	<script src="js/google-map.js"></script> -->
 
+			<script>
+				window.addEventListener("DOMContentLoaded", function() {
+			
+					// get the form elements defined in your form HTML above
+					
+					var form = document.getElementById("my-form");
+					var button = document.getElementById("my-form-button");
+					var status = document.getElementById("my-form-status");
+			
+					// Success and Error functions for after the form is submitted
+					
+					function success() {
+						form.reset();
+						button.style = "display: none ";
+						status.innerHTML = "Thanks!";
+					}
+			
+					function error() {
+						status.innerHTML = "Oops! There was a problem.";
+					}
+			
+					// handle the form submission event
+			
+					form.addEventListener("submit", function(ev) {
+						ev.preventDefault();
+						var data = new FormData(form);
+						ajax(form.method, form.action, data, success, error);
+					});
+				});
+				
+				// helper function for sending an AJAX request
+			
+				function ajax(method, url, data, success, error) {
+					var xhr = new XMLHttpRequest();
+					xhr.open(method, url);
+					xhr.setRequestHeader("Accept", "application/json");
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState !== XMLHttpRequest.DONE) return;
+						if (xhr.status === 200) {
+							success(xhr.response, xhr.responseType);
+						} else {
+							error(xhr.status, xhr.response, xhr.responseType);
+						}
+					};
+					xhr.send(data);
+				}
+			</script>
     </body>
     </html>
